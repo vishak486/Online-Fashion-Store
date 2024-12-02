@@ -4,6 +4,7 @@ import Shirt from '../assets/halfshirt.png'
 import Pant from '../assets/pant.png'
 import Onepiece from '../assets/onepeice.png'
 import Twopiece from '../assets/twopiece.png'
+import { Link } from 'react-router-dom'
 
 const ProductCategory = () => {
   return (
