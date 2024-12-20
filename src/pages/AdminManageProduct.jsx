@@ -5,7 +5,7 @@ import EditProduct from '../components/EditProduct'
 import EditStock from '../components/EditStock'
 
 import { deleteProductAPI, getAllProductAPI } from '../services/allApi'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import {viewCategoryResponseContext} from '../contexts/CategoryContext'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 

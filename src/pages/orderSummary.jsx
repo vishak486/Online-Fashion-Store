@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Table } from 'react-bootstrap'
 import { getOrderPlaceAPI } from '../services/allApi';
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 
 const orderSummary = () => {
     const [searchKey, setSearchKey] = useState('');

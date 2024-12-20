@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header'
 import EditProfile from './EditProfile'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import { getProfileDetailsAPI } from '../services/allApi';
 
 const Profile = () => {

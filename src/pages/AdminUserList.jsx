@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AdminHeader from '../components/AdminHeader'
 import { getAllUserAPI, userDeleteAPI } from '../services/allApi'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import { Table } from 'react-bootstrap'
 
 const AdminUserList = () => {

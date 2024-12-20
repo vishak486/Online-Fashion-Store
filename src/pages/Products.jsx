@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import { fetchAllProductsAPI, FetchCategoryAPI } from '../services/allApi'
 import { Link } from 'react-router-dom'
 

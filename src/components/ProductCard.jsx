@@ -5,7 +5,7 @@ import Pant from '../assets/pant.png'
 import Onepiece from '../assets/onepeice.png'
 import Twopiece from '../assets/twopiece.png'
 import { Link } from 'react-router-dom'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 
 const ProductCard = ({displayData}) => {
     return (

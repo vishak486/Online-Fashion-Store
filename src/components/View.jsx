@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import { addToCartAPI, getSingleProductsAPI } from '../services/allApi'
 
 const View = () => {

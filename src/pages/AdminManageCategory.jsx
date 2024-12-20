@@ -4,7 +4,7 @@ import AddCategory from '../components/AddCategory'
 import EditCategory from '../components/EditCategory'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { deleteCategoryAPI, getAllCategoryAPI } from '../services/allApi'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 
 import {viewCategoryResponseContext} from '../contexts/CategoryContext'
 

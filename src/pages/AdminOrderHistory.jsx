@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Form, Modal, Row, Table } from 'react-bootstrap'
 import { getAdminOrderHistoryAPI, updateOrderStatusAPI } from '../services/allApi';
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import AdminHeader from '../components/AdminHeader'
 
 const AdminOrderHistory = () => {

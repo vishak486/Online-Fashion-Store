@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import { updateUserAPI } from '../services/allApi';
 
 const EditProfile = ({fetchUserDetails}) => {

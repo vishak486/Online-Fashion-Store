@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
-import SERVER_URL from '../services/serverURL'
+import SERVER_URL from '../services/serverUrl'
 import { deleteCartDetailsAPI, emptyCartAPI, getCartDetailsAPI, orderPlaceAPI, updateCartQuantityAPI, validateUserProfileAPI } from '../services/allApi'
 import { Table } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
