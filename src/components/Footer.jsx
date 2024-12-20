@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
     <>
-    <div style={{ height: 'auto' }} className="container-fluid w-100 bg-primary text-white p-5 shadow">
+    <div style={{ height: 'auto' }} className="container-fluid w-100 bg-primary text-white p-5 shadow mb-0">
   <div className="row d-flex justify-content-between">
 
     {/* About Section */}

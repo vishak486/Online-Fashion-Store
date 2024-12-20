@@ -3,9 +3,9 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { viewCategoryResponseContext } from '../contexts/CategoryContext'; 
 import { updateCategoryAPI, updateProductAPI } from '../services/allApi';
 
-const EditProduct = ({product,getAllProducts}) => {
+const EditProduct = ({product,getAllProducts,Categories}) => {
     const [show, setShow] = useState(false);
-    const { forCategories } = useContext(viewCategoryResponseContext);
+    // const { forCategories } = useContext(viewCategoryResponseContext);
     const [productDetails, setProductDetails]=useState({
         id: product._id || "", productName: product.productName || "", productDescription: product.productDescription || "", productImg: product.productImg || "",  categoryName: product.categoryName || ""
     })
@@ -106,8 +106,8 @@ const EditProduct = ({product,getAllProducts}) => {
                                 onChange={e => setProductDetails({ ...productDetails, categoryName: e.target.value })}
                             >
                                 <option value="" disabled>Select a Category</option>
-                                {forCategories && forCategories.length > 0 ? (
-                                    forCategories.map(category => (
+                                {Categories && Categories.length > 0 ? (
+                                    Categories.map(category => (
                                         <option key={category._id} value={category.categoryName}>
                                             {category.categoryName}
                                         </option>

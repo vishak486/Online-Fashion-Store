@@ -1,69 +1,70 @@
 import React, { useEffect, useState } from 'react'
 import AdminHeader from '../components/AdminHeader'
 import { getAllUserAPI, userDeleteAPI } from '../services/allApi'
-
+import SERVER_URL from '../services/serverURL'
+import { Table } from 'react-bootstrap'
 
 const AdminUserList = () => {
-    const [userDetails,setUserDetails]=useState([])
+    const [userDetails, setUserDetails] = useState([])
+    const [collapsed, setCollapsed] = useState(false);
 
-    useEffect(()=>{
+    useEffect(() => {
         getUserDetails()
-    },[])
-    console.log(userDetails);
-    
+    }, [])
+    // console.log(userDetails);
 
-    const getUserDetails=async()=>{
-        const token=sessionStorage.getItem("token")
+    const toggleSidebar = () => {
+        setCollapsed(!collapsed); // Toggle the collapsed state
+    };
+
+    const getUserDetails = async () => {
+        const token = sessionStorage.getItem("token")
         console.log(token);
-        
-        if(token)
-        {
+
+        if (token) {
             const reqHeader = {
                 "Authorization": `Bearer ${token}`
-              }
-            try
-            {
-                const result= await getAllUserAPI(reqHeader)
-                if(result.status==200)
-                {
+            }
+            try {
+                const result = await getAllUserAPI(reqHeader)
+                if (result.status == 200) {
                     setUserDetails(result.data)
                 }
             }
-            catch(err)
-            {
+            catch (err) {
                 console.log(err);
-                
+
             }
         }
     }
 
-    const deleteUserDetails=async(id)=>{
-        const token=sessionStorage.getItem("token")
-        if(token)
-        {
-            const reqHeader={Authorization:`Bearer ${token}`}
-            try
-            {
-                await userDeleteAPI(id,reqHeader)
+    const deleteUserDetails = async (id) => {
+        const token = sessionStorage.getItem("token")
+        if (token) {
+            const reqHeader = { Authorization: `Bearer ${token}` }
+            try {
+                await userDeleteAPI(id, reqHeader)
                 getUserDetails()
             }
-            catch(err)
-            {
+            catch (err) {
                 console.log(err);
-                
+
             }
         }
     }
     return (
         <>
             <div className="d-flex" style={{ minHeight: '100vh' }}>
-                <AdminHeader />
-                <div className="flex-grow-1 p-4 bg-light" style={{ marginLeft: '250px', transition: 'margin-left 0.3s' }} >
+                <AdminHeader collapsed={collapsed} toggleSidebar={toggleSidebar} />
+                <div className="flex-grow-1 p-4 bg-light" style={{
+                    marginLeft: collapsed ? '70px' : '250px', // Change margin based on collapsed state
+                    transition: 'margin-left 0.3s ease', // Smooth transition for margin
+                }} >
                     {/* Table */}
                     <div className="mt-5">
                         <h4 className="text-primary fw-bold mb-3">User List</h4>
-                        <div style={{ overflowX: 'auto' }} className="table-responsive">
-                            <table className="table table-striped table-hover shadow-sm bg-white">
+                        <div className="table-responsive"style={{ overflowX: 'auto' }}>
+                            <Table responsive striped bordered hover className="table table-striped table-hover shadow-sm bg-white">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -85,18 +86,18 @@ const AdminUserList = () => {
                                             <tr key={user._id}>
                                                 <td>{index + 1}</td>
                                                 <td>
-                                                    <img src={user.profilePhoto || "https://via.placeholder.com/70"} 
-                                                         alt={user.username} 
-                                                         className="img-fluid rounded" 
-                                                         style={{ height: '50px', width: '70px' }} />
+                                                    <img src={user.profilePic ? `${SERVER_URL}/uploads/${user.profilePic}` : "https://via.placeholder.com/70"}
+                                                        alt={user.username}
+                                                        className="img-fluid rounded"
+                                                        style={{ height: '50px', width: '70px' }} />
                                                 </td>
                                                 <td>{user.username}</td>
                                                 <td>{user.email}</td>
                                                 <td>{user.phone}</td>
                                                 <td>{user.address}</td>
                                                 <td>
-                                                    <button 
-                                                        className='btn btn-outline-danger btn-md' 
+                                                    <button
+                                                        className='btn btn-outline-danger btn-md'
                                                         onClick={() => deleteUserDetails(user._id)}
                                                     >
                                                         Delete
@@ -106,9 +107,10 @@ const AdminUserList = () => {
                                         ))
                                     )}
                                 </tbody>
-                            </table>
+                            </Table>
                         </div>
                     </div>
+
                 </div>
             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useContext } from 'react'
 import AdminHeader from '../components/AdminHeader'
 import AddProduct from '../components/AddProduct'
 import EditProduct from '../components/EditProduct'
@@ -6,11 +6,16 @@ import EditStock from '../components/EditStock'
 
 import { deleteProductAPI, getAllProductAPI } from '../services/allApi'
 import SERVER_URL from '../services/serverURL'
+import {viewCategoryResponseContext} from '../contexts/CategoryContext'
 import { Button, Col, Row, Table } from 'react-bootstrap'
+
 
 const AdminManageProduct = () => {
     const [allProduct, setAllProducts] = useState([])
     const [searchKey,setSearchKey]=useState("")
+    const [collapsed, setCollapsed] = useState(false);
+    
+    const { Categories, getAllCategories } = useContext(viewCategoryResponseContext);
     useEffect(() => {
         getAllProducts()
     }, [searchKey])
@@ -49,18 +54,24 @@ const AdminManageProduct = () => {
             }
         }
     }
+    const toggleSidebar = () => {
+        setCollapsed(!collapsed); // Toggle the collapsed state
+    };
     return (
         <>
             <div className="d-flex" style={{ minHeight: '100vh' }}>
-                <AdminHeader />
-                <div className="flex-grow-1 p-4 bg-light" style={{ marginLeft: '250px', transition: 'margin-left 0.3s' }} >
+                <AdminHeader collapsed={collapsed} toggleSidebar={toggleSidebar} />
+                <div className="flex-grow-1 p-4 bg-light" style={{
+                        marginLeft: collapsed ? '70px' : '250px', // Change margin based on collapsed state
+                        transition: 'margin-left 0.3s ease', // Smooth transition for margin
+                    }} >
                     <Row className="align-items-center mb-4">
                         <Col>
                             <h4 className="text-primary fw-bold mb-3">Product List</h4>
                             <input onChange={e=>setSearchKey(e.target.value)}  type="text" placeholder='Search products' className="form-control" />
                         </Col>
                         <Col className="text-end">
-                            <AddProduct getAllProducts={getAllProducts} />
+                            <AddProduct Categories={Categories} getAllProducts={getAllProducts} />
                         </Col>
                     </Row>
                     <div className="table-responsive">
@@ -101,7 +112,7 @@ const AdminManageProduct = () => {
                                             <td>${product.productPrice}</td>
                                             <td>{product.productQuantity}</td>
                                             <td>
-                                                <EditProduct product={product} getAllProducts={getAllProducts}/>
+                                                <EditProduct Categories={Categories} product={product} getAllProducts={getAllProducts}/>
                                                 <Button  onClick={()=>deleteProducts(product._id)} variant="danger" className="btn-md mx-1">Delete</Button>
                                             </td>
                                             <td>

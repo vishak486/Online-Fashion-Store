@@ -9,34 +9,18 @@ import SERVER_URL from '../services/serverURL'
 import {viewCategoryResponseContext} from '../contexts/CategoryContext'
 
 const AdminManageCategory = () => {
-    const { forCategories, updateCategories }=useContext(viewCategoryResponseContext)
-    const [Categories, setCategories] = useState([])
-    const [searchKey,setSearchKey]=useState("")
-    useEffect(()=>{
-        getAllCategories()
-    },[searchKey])
+    const [collapsed, setCollapsed] = useState(false);
+    
+    const {
+        Categories,
+        getAllCategories,
+        searchKey,
+        setSearchKey,
+    } = useContext(viewCategoryResponseContext);
 
-
-    const getAllCategories = async () => {
-        const token = sessionStorage.getItem("token")
-        if (token) {
-            const reqHeader = {
-                "Authorization": `Bearer ${token}`
-            }
-            try {
-                const result = await getAllCategoryAPI(searchKey,reqHeader)
-                if (result.status == 200) {
-                    setCategories(result.data)
-                    updateCategories(result.data)
-                }
-
-            }
-            catch (err) {
-                console.log(err)
-            }
-        }
-    }
-
+    const toggleSidebar = () => {
+        setCollapsed(!collapsed); // Toggle the collapsed state
+    };
     const deleteCategories=async(id)=>{
         const token=sessionStorage.getItem("token")
         if(token)
@@ -56,8 +40,11 @@ const AdminManageCategory = () => {
     return (
         <>
             <div className="d-flex" style={{ minHeight: '100vh' }}>
-                <AdminHeader />
-                <div className="flex-grow-1 p-4 bg-light" style={{ marginLeft: '250px', transition: 'margin-left 0.3s' }} >
+                <AdminHeader collapsed={collapsed} toggleSidebar={toggleSidebar} />
+                <div className="flex-grow-1 p-4 bg-light" style={{
+                        marginLeft: collapsed ? '70px' : '250px', // Change margin based on collapsed state
+                        transition: 'margin-left 0.3s ease', // Smooth transition for margin
+                    }} >
                     <Row className="align-items-center mb-4">
                         <Col>
                             <h4 className="text-primary fw-bold mb-3">Category List</h4>
@@ -67,8 +54,7 @@ const AdminManageCategory = () => {
                             <AddCategory getAllCategories={getAllCategories} />
                         </Col>
                     </Row>
-                    <div className="table-responsive">
-                        <Table striped bordered hover responsive>
+                    <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -110,7 +96,7 @@ const AdminManageCategory = () => {
 
                             </tbody>
                         </Table>
-                    </div>
+                    
 
                 </div>
             </div>

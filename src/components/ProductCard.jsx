@@ -5,114 +5,35 @@ import Pant from '../assets/pant.png'
 import Onepiece from '../assets/onepeice.png'
 import Twopiece from '../assets/twopiece.png'
 import { Link } from 'react-router-dom'
+import SERVER_URL from '../services/serverURL'
 
-const ProductCard = () => {
+const ProductCard = ({displayData}) => {
     return (
         <>
 
-            <div className="container py-5">
-                <div className="row justify-content-evenly">
-                    {/* Card 1 */}
-                    <div className="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center mb-4">
-                        <Card
-                            className="shadow-lg border-0"
-                            style={{
-                                width: '18rem',
-                                background: 'linear-gradient(to bottom, #d0e8f2, #fff)',
-                                borderRadius: '15px',
-                            }}
-                        >
-                            <Card.Img
-                                style={{
-                                    width: '100%',
-                                    height: '350px',
-                                    objectFit: 'cover',
-                                    borderTopLeftRadius: '15px',
-                                    borderTopRightRadius: '15px',
-                                    padding:'10px'
-                                }}
-                                variant="top"
-                                src={Shirt}
-                            />
-                            <Card.Body className="text-center">
-                                <Card.Title className="fw-bold fs-5">Men's Collection</Card.Title>
-                                <Card.Text className="text-muted fs-6">
-                                    Discover the finest apparel for men, designed for comfort and style.
-                                </Card.Text>
-                                <Link to={'/view'} className="btn btn-primary rounded-pill px-4">
-                                    View Details
-                                </Link>
-                            </Card.Body>
-                        </Card>
-                    </div>
+            <div className="container">
 
-                    {/* Card 2 */}
-                    <div className="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center mb-4">
-                        <Card
-                            className="shadow-lg border-0"
-                            style={{
-                                width: '18rem',
-                                background: 'linear-gradient(to bottom, #f8cdda, #fff)',
-                                borderRadius: '15px',
-                            }}
-                        >
-                            <Card.Img
-                                style={{
-                                    width: '100%',
-                                    height: '350px',
-                                    objectFit: 'cover',
-                                    borderTopLeftRadius: '15px',
-                                    borderTopRightRadius: '15px',
-                                    padding:'10px'
-                                }}
-                                variant="top"
-                                src={Onepiece}
-                            />
-                            <Card.Body className="text-center">
-                                <Card.Title className="fw-bold fs-5">Women's Collection</Card.Title>
-                                <Card.Text className="text-muted fs-6">
-                                    Elevate your wardrobe with our elegant women's collection.
-                                </Card.Text>
-                                <Button variant="primary" className="rounded-pill px-4">
-                                    View Details
-                                </Button>
-                            </Card.Body>
-                        </Card>
-                    </div>
+                <div id="recipes" style={{ paddingTop: "100px" }} className="container-fluid px-4 py-5">
 
-                    {/* Card 3 */}
-                    <div className="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center mb-4">
-                        <Card
-                            className="shadow-lg border-0"
-                            style={{
-                                width: '18rem',
-                                background: 'linear-gradient(to bottom, #e2f0cb, #fff)',
-                                borderRadius: '15px',
-                            }}
-                        >
-                            <Card.Img
-                                style={{
-                                    width: '100%',
-                                    height: '350px',
-                                    objectFit: 'cover',
-                                    borderTopLeftRadius: '15px',
-                                    borderTopRightRadius: '15px',
-                                    padding:'10px'
-                                }}
-                                variant="top"
-                                src={Pant}
-                            />
-                            <Card.Body className="text-center">
-                                <Card.Title className="fw-bold fs-5">Kids' Collection</Card.Title>
-                                <Card.Text className="text-muted fs-6">
-                                    Vibrant and durable outfits for kids to play and shine in.
-                                </Card.Text>
-                                <Button variant="primary" className="rounded-pill px-4">
-                                    View Details
-                                </Button>
-                            </Card.Body>
-                        </Card>
-                    </div>
+                        {/* Recipe Card 1 */}
+                        <div className="col">
+                            <div style={{ background: 'linear-gradient(to bottom, #e2f0cb, #fff)', }} className="card shadow-sm border rounded">
+                                <img src={`${SERVER_URL}/uploads/${displayData?.productImg}`}  className="card-img-top" alt="Recipe Image" />
+                                <div className="card-body text-center">
+                                    <h2 className="fs-4 fw-bold">{displayData?.productName}</h2>
+                                    <p>Category : {displayData?.categoryName}</p>
+                                    <p className="text-success fs-5">Available Stock: {displayData?.productQuantity}</p>
+                                    <p className="text-danger fs-5">Price: ₹{displayData?.productPrice}</p>
+                                    {
+                                        sessionStorage.getItem("token")?
+                                        <Link to={`/${displayData?._id}/view`}   className="btn btn-primary rounded-pill mt-1 px-4">View Details</Link>
+                                        :
+                                        <Link to={`/login`}   className="btn btn-primary rounded-pill mt-1 px-4">View Details</Link>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+   
                 </div>
             </div>
 

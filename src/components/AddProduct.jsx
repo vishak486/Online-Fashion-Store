@@ -3,9 +3,9 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { viewCategoryResponseContext } from '../contexts/CategoryContext'
 import { addProductAPI } from '../services/allApi';
 
-const AddProduct = ({getAllProducts}) => {
+const AddProduct = ({getAllProducts,Categories}) => {
     const [show, setShow] = useState(false);
-    const { forCategories } = useContext(viewCategoryResponseContext)
+    // const { forCategories } = useContext(viewCategoryResponseContext)
     // console.log("Categories in AddProduct:", forCategories);
 
     const [productDetails, setProductDetails] = useState({
@@ -120,8 +120,8 @@ const AddProduct = ({getAllProducts}) => {
                             <Form.Select value={productDetails.categoryName} onChange={e => setProductDetails({ ...productDetails, categoryName: e.target.value })}>
                                 <option value="" disabled>Select a Category</option>
                                 {/* Populate categories dynamically */}
-                                {forCategories && forCategories.length > 0 ? (
-                                    forCategories.map(category => (
+                                {Categories && Categories.length > 0 ? (
+                                    Categories.map(category => (
                                         <option key={category._id} value={category.categoryName}>
                                             {category.categoryName}
                                         </option>
